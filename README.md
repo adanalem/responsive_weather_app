@@ -17,3 +17,5 @@ Frontend: HTML5, Tailwind CSS, JavaScript (ES6+).
 API: OpenWeatherMap API.
 
 Design: Custom Glassmorphism patterns.
+
+<img width="680" height="757" alt="image" src="https://github.com/user-attachments/assets/1d61aa9f-165b-40ae-a576-72ac5267be52" />
