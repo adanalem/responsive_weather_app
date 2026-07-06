@@ -75,19 +75,7 @@ if (videoElement) {
     };
 }
 
-if (videoElement && typeof videoElement.load === "function") {
-    videoElement.load();
-    
-    videoElement.play().catch(error => console.log("Autoplay blocked:", error));
-}
-       videoElement.load();
-        videoElement.play();
 
-    } catch (error) {
-        alert("City not found. Please enter a valid city name.");
-        console.error(error);
-    }
-}
 
 //  Fetch Hourly Forecast
 async function fetchForecast(cityName = "Karachi") {
