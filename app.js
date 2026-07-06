@@ -68,7 +68,7 @@ else {
         alert("City not found. Please enter a valid city name.");
         console.error(error);
     }
-}
+
 
 //  Fetch Hourly Forecast
 async function fetchForecast(cityName = "Karachi") {
