@@ -40,42 +40,35 @@ async function fetchWeather(cityName = "Karachi") {
         const isNight = iconCode.endsWith('n');
 
 
-const condition = (weatherCondition || "").toLowerCase();
-
-if (condition === "clear") {
-    videoElement.src = isNight ? "assets/videos/clearnight.mp4" : "assets/videos/clearday.mp4";
+if (weatherCondition === "clear") {
+    sourceElement.src = isNight ? "assets/videos/clearnight.mp4" : "assets/videos/clearday.mp4";
 } 
-else if (condition === "rain" || condition === "drizzle" || condition.includes("thunderstorm")) {
-    videoElement.src = isNight ? "assets/videos/rainnight.mp4" : "assets/videos/rain.mp4";
+else if (weatherCondition === "rain" || weatherCondition === "drizzle" || weatherCondition.includes("thunderstorm")) {
+    sourceElement.src = isNight ? "assets/videos/rainnight.mp4" : "assets/videos/rain.mp4";
 } 
-else if (condition === "clouds" || condition.includes("overcast")) {
-    videoElement.src = isNight ? "assets/videos/cloudnight.mp4" : "assets/videos/cloud.mp4";
+else if (weatherCondition === "clouds" || weatherCondition.includes("overcast")) {
+    sourceElement.src = isNight ? "assets/videos/cloudnight.mp4" : "assets/videos/cloud.mp4";
 } 
-// Haze, Mist, Fog ya Smoke ke liye:
-else if (condition.includes("haze") || condition.includes("mist") || condition.includes("fog") || condition.includes("smoke")) {
-    videoElement.src = isNight ? "assets/videos/hazenight.mp4" : "assets/videos/haze.mp4";
+// Haze, Mist, Fog ya Smoke ke liye assets link kar diye:
+else if (weatherCondition.includes("haze") || weatherCondition.includes("mist") || weatherCondition.includes("fog") || weatherCondition.includes("smoke")) {
+    sourceElement.src = isNight ? "assets/videos/hazenight.mp4" : "assets/videos/haze.mp4";
 } 
-else if (condition.includes("snow")) {
-    videoElement.src = isNight ? "assets/videos/snownight.mp4" : "assets/videos/snow.mp4";
+else if (weatherCondition.includes("snow")) {
+    sourceElement.src = isNight ? "assets/videos/snownight.mp4" : "assets/videos/snow.mp4";
 } 
 else {
-    videoElement.src = isNight ? "assets/videos/clearnight.mp4" : "assets/videos/clearday.mp4";
-}
-if (videoElement) {
-    videoElement.pause(); 
-    
-    videoElement.load();  
-    
-    videoElement.onloadeddata = async () => {
-        try {
-            await videoElement.play();
-        } catch (error) {
-            console.log("Autoplay block ya interrupt handle ho gaya:", error.message);
-        }
-    };
+    sourceElement.src = isNight ? "assets/videos/clearnight.mp4" : "assets/videos/clearday.mp4";
 }
 
 
+        videoElement.load();
+        videoElement.play();
+
+    } catch (error) {
+        alert("City not found. Please enter a valid city name.");
+        console.error(error);
+    }
+}
 
 //  Fetch Hourly Forecast
 async function fetchForecast(cityName = "Karachi") {
