@@ -59,7 +59,6 @@ else if (condition.includes("snow")) {
     videoElement.src = isNight ? "assets/videos/snownight.mp4" : "assets/videos/snow.mp4";
 } 
 else {
-    // Default fallback agar koi ajeeb condition aa jaye (Jaise Tornado, Dust etc)
     videoElement.src = isNight ? "assets/videos/clearnight.mp4" : "assets/videos/clearday.mp4";
 }
 if (videoElement) {
