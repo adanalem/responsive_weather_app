@@ -39,29 +39,33 @@ async function fetchWeather(cityName = "Karachi") {
         const iconCode = data.weather[0].icon;
         const isNight = iconCode.endsWith('n');
 
-        // Upgraded Video Selection (Image ke mutabiq saare assets link kar diye hain)
-if (weatherCondition === "clear") {
-    sourceElement.src = isNight ? "assets/videos/clearnight.mp4" : "assets/videos/clearday.mp4";
+const condition = (weatherCondition || "").toLowerCase();
+
+if (condition === "clear") {
+    videoElement.src = isNight ? "assets/videos/clearnight.mp4" : "assets/videos/clearday.mp4";
 } 
-else if (weatherCondition === "rain" || weatherCondition === "drizzle" || weatherCondition.includes("thunderstorm")) {
-    sourceElement.src = isNight ? "assets/videos/rainnight.mp4" : "assets/videos/rain.mp4";
+else if (condition === "rain" || condition === "drizzle" || condition.includes("thunderstorm")) {
+    videoElement.src = isNight ? "assets/videos/rainnight.mp4" : "assets/videos/rain.mp4";
 } 
-else if (weatherCondition === "clouds" || weatherCondition.includes("overcast")) {
-    sourceElement.src = isNight ? "assets/videos/cloudnight.mp4" : "assets/videos/cloud.mp4";
+else if (condition === "clouds" || condition.includes("overcast")) {
+    videoElement.src = isNight ? "assets/videos/cloudnight.mp4" : "assets/videos/cloud.mp4";
 } 
-// Haze, Mist, Fog ya Smoke ke liye assets link kar diye:
-else if (weatherCondition.includes("haze") || weatherCondition.includes("mist") || weatherCondition.includes("fog") || weatherCondition.includes("smoke")) {
-    sourceElement.src = isNight ? "assets/videos/hazenight.mp4" : "assets/videos/haze.mp4";
+else if (condition.includes("haze") || condition.includes("mist") || condition.includes("fog") || condition.includes("smoke")) {
+    videoElement.src = isNight ? "assets/videos/hazenight.mp4" : "assets/videos/haze.mp4";
 } 
-else if (weatherCondition.includes("snow")) {
-    sourceElement.src = isNight ? "assets/videos/snownight.mp4" : "assets/videos/snow.mp4";
+else if (condition.includes("snow")) {
+    videoElement.src = isNight ? "assets/videos/snownight.mp4" : "assets/videos/snow.mp4";
 } 
 else {
-    sourceElement.src = isNight ? "assets/videos/clearnight.mp4" : "assets/videos/clearday.mp4";
+    videoElement.src = isNight ? "assets/videos/clearnight.mp4" : "assets/videos/clearday.mp4";
 }
 
-
-        videoElement.load();
+if (videoElement && typeof videoElement.load === "function") {
+    videoElement.load();
+    
+    videoElement.play().catch(error => console.log("Autoplay blocked:", error));
+}
+       videoElement.load();
         videoElement.play();
 
     } catch (error) {
