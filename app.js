@@ -40,7 +40,6 @@ async function fetchWeather(cityName = "Karachi") {
         const isNight = iconCode.endsWith('n');
 
 
-
 const condition = (weatherCondition || "").toLowerCase();
 
 if (condition === "clear") {
@@ -63,26 +62,18 @@ else {
     // Default fallback agar koi ajeeb condition aa jaye (Jaise Tornado, Dust etc)
     videoElement.src = isNight ? "assets/videos/clearnight.mp4" : "assets/videos/clearday.mp4";
 }
-
-// 2. ABORTERROR AND 404 CRASH FIX (Safe Video Loading Mechanism)
 if (videoElement) {
-    try {
-        // Pehle se chalti hui video ko pause karein taake browser interrupt na ho
-        videoElement.pause(); 
-        
-        // Nayi select ki hui video source ko load karein
-        videoElement.load();  
-        
-        // Ek chota sa gap (150ms delay) dein taake browser safely video render kar sake
-        setTimeout(() => {
-            videoElement.play().catch(error => {
-                console.log("Video playback temporarily blocked or interrupted:", error);
-            });
-        }, 150);
-
-    } catch (e) {
-        console.error("Video processing error:", e);
-    }
+    videoElement.pause(); 
+    
+    videoElement.load();  
+    
+    videoElement.onloadeddata = async () => {
+        try {
+            await videoElement.play();
+        } catch (error) {
+            console.log("Autoplay block ya interrupt handle ho gaya:", error.message);
+        }
+    };
 }
 
 if (videoElement && typeof videoElement.load === "function") {
