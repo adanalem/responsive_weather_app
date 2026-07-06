@@ -39,7 +39,7 @@ async function fetchWeather(cityName = "Karachi") {
         const iconCode = data.weather[0].icon;
         const isNight = iconCode.endsWith('n');
 
-
+        // Upgraded Video Selection (Image ke mutabiq saare assets link kar diye hain)
 if (weatherCondition === "clear") {
     sourceElement.src = isNight ? "assets/videos/clearnight.mp4" : "assets/videos/clearday.mp4";
 } 
